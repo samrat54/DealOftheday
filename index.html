@@ -1,0 +1,70 @@
+<style>
+  /* styles.css */
+
+.countdown {
+    display: flex;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+    background: #ec0003;
+    padding: 3px;
+    border-top: 1px solid #372aed;
+    border-bottom: 1px solid #372aed;
+}
+
+.countdown-element {
+
+    margin: 0 5px;
+    min-width: 40px;
+    background: white;
+    text-align: center;
+    color: black;
+}
+
+.divider {
+  margin: 0 5px;
+}
+
+</style>
+  <div class="countdown">End in:
+    <div class="countdown-element" id="hours">00</div>
+    <span class="divider">:</span>
+    <div class="countdown-element" id="minutes">00</div>
+    <span class="divider">:</span>
+    <div class="countdown-element" id="seconds">00</div>
+  </div>
+ <script>
+// script.js
+
+function updateCountdown() {
+  const hoursElement = document.getElementById('hours');
+  const minutesElement = document.getElementById('minutes');
+  const secondsElement = document.getElementById('seconds');
+  
+  const now = new Date();
+  const endOfDeal = new Date(now);
+  endOfDeal.setHours(23, 59, 59, 999); // Set the end time to 23:59:59.999 of the current day
+  const timeLeft = endOfDeal - now;
+
+  if (timeLeft <= 0) {
+    hoursElement.textContent = "00";
+    minutesElement.textContent = "00";
+    secondsElement.textContent = "00";
+  } else {
+    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+    hoursElement.textContent = hours.toString().padStart(2, '0');
+    minutesElement.textContent = minutes.toString().padStart(2, '0');
+    secondsElement.textContent = seconds.toString().padStart(2, '0');
+  }
+}
+
+// Call the updateCountdown function every second
+setInterval(updateCountdown, 1000);
+
+// Initial call to update the countdown immediately on page load
+updateCountdown();
+ </script>
